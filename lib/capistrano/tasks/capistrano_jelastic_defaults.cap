@@ -2,9 +2,6 @@ namespace :load do
 
   task :capistrano_jelastic_defaults do
 
-    # Locking the capistrano version to '3.4.0'
-    lock '3.4.0'
-
     # Default branch is :master
     # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
     ask :branch,          'master'
