@@ -1,8 +1,40 @@
 # Define the name of the application
-set :application, 'some_cool_app_name' <-- change this
+set :application, 'my app name'
+set :repo_url, 'git@example.com:me/my_repo.git'
 
-# Define url to the VCS repository so that capistrano can initiate a checkout; git is autmatically set as version control system
-# Note: You need to have registered the SSH public key of the jelastic nginx server to the specified source code repository. Otherwise, you’ll get a “Permission denied” error. If there is no public SSH key on the jelastic machine, you need to perform `ssh-keygen` and copy & paste `~/.ssh/id_rsa.pub` in your repository.
-# 
-# You can also use the HTTPS link of the following type: `set :repo_url, "https://example.net/GIT_user_name/repo_name.git"`
-set :repo_url, 'https://github.com/some_cool_repository' <-- change this
+set :format, :pretty
+set :log_level, :debug
+
+# Default value for :pty is false
+# set :pty, true
+
+set :linked_files, fetch(:linked_files, []) | [
+  "config/application.yml",
+  "config/database.yml",
+  "config/secrets.yml"
+]
+set :keep_releases, 5
+
+namespace :deploy do
+  after :publishing, :restart
+
+  # capistrano-jelastic comes with it's own deploy:restart task, but you
+  # can replace it here if you wish
+  # desc 'Restart application'
+  # task :restart do
+  #   on roles(:app), in: :sequence, wait: 5 do
+  #     # Your restart mechanism here, for example:
+  #     # execute :touch, release_path.join('tmp/restart.txt')
+  #   end
+  # end
+
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
+    end
+  end
+
+end

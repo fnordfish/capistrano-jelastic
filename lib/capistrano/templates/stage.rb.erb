@@ -33,5 +33,12 @@ set :linked_files, fetch(:linked_files, []) | ['config/database.yml', 'config/se
 
 # Feel free to include any config variable in the `config/deploy.rb` or in config/deploy/*.rb to customize your setup. This variables will override the default values defined in:
 # https://github.com/gerardo-navarro/capistrano-jelastic/blob/master/lib/capistrano/tasks/capistrano_jelastic_defaults.cap
-# 
+#
 # For available Capistrano configuration variables see the documentation page: http://capistranorb.com/documentation/getting-started/configuration/
+
+# Overwrite branch to deploy (pick one or change to your needs)
+# Default branch is :master
+# set :branch, "master"
+# set :branch, "production"
+# Or:
+# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
