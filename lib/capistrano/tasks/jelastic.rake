@@ -26,19 +26,6 @@ namespace :deploy do
     end
   end
 
-  desc "Reload the database with seed data"
-  task seed: [:set_rails_env] do
-    if fetch(:seeding_enabled)
-      on primary fetch(:migration_role) do
-        within release_path do
-          with rails_env: fetch(:rails_env) do
-            execute :rake, "db:seed"
-          end
-        end
-      end
-    end
-  end
-
   desc "Restart Application using tmp/restart.txt"
   task :restart do
     if fetch(:jelastic_tmp_restart)
@@ -50,7 +37,6 @@ namespace :deploy do
     end
   end
 
-  after :migrate, :seed
   before :restart, :symlink
   after :publishing, :restart
 end

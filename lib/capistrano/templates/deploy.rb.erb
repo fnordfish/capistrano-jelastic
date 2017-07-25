@@ -28,13 +28,30 @@ namespace :deploy do
   #   end
   # end
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
-  end
+  # after :restart, :clear_cache do
+  #   on roles(:web), in: :groups, limit: 3, wait: 10 do
+  #     # Here we can do anything such as:
+  #     # within release_path do
+  #     #   execute :rake, 'cache:clear'
+  #     # end
+  #   end
+  # end
 
+  # When using Rails and capistrano/rails, use this to automatically run seeds
+  #
+  # # NOTE: the migrate task is defined in capistrano/rails
+  # after :migrate, :seed
+  #
+  # desc "Reload the database with seed data"
+  # task seed: [:set_rails_env] do
+  #   if fetch(:seeding_enabled)
+  #     on primary fetch(:migration_role) do
+  #       within release_path do
+  #         with rails_env: fetch(:rails_env) do
+  #           execute :rake, "db:seed"
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
 end

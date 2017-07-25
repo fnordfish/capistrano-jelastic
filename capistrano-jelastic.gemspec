@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "Deploying rails apps on Jelastic server in an easy way."
   spec.description   = <<-DESC
-Deploying rails apps on Jelastic server in an easy way.
+Deploying ruby apps on Jelastic server in an easy way.
 This gem is an integration for capistrano which incapsulates the capistrano deployment on Jelastic.
 The deployment flow in this gem is inspired by the official jelastic documentation for capistrano,
 see https://docs.jelastic.com/ssh-capistrano
@@ -30,5 +30,4 @@ DESC
   # Because rvm is used on jelastic to handle ruby versions
   spec.add_dependency "capistrano-rvm"
   spec.add_dependency "capistrano-bundler"
-  spec.add_dependency "capistrano-rails"
 end
